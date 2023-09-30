@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"
+        defer></script>
+
+    <title>Video Streaming Home</title>
+
+
+    <link rel="stylesheet" type="text/css" href="../static/css/main.css" th:href="@{css/main.css}" media="all">
+
+    <script src="../static/js/htmx.min.js" th:src="@{js/htmx.min.js}" defer></script>
+   <!--  <script src="../static/js/upload.js" th:src="@{js/upload.js}" defer></script> -->
+
+
+</head>
+
+<body>
+
+    <header class="navbar navbar-expand-md navbar-light bg-light shadow-sm">
+        <div class="container">
+            <a href="#"
+            hx-get="/home"
+            hx-trigger="click"
+            hx-target="#main-content"
+            hx-swap="outerHTML"
+            class="navbar-brand h1">Home</a>
+            <ul class="navbar-nav">
+                <li><a href="login" class="btn btn-outline-primary">login</a></li>
+                <li><a href="register" class="nav-link">Regster</a></li>
+            </ul>
+        </div>
+
+    </header>
+    <div class=" row">
+        <nav class="col-2 pt-4">
+            <ul class="nav flex-column mh-100">
+                <li class="nav-item rounded-pill"><a
+                   class="nav-link">Libery</a></li>
+                <li class="nav-item rounded-pill"><a href="#" class="nav-link">Shorts</a></li>
+                <li class="nav-item rounded-pill"><a href="#" class="nav-link">History</a></li>
+                <li class="nav-item rounded-pill">
+                    <a href="#"
+                     hx-get="/upload"
+                     hx-trigger="click"
+                     hx-target="#main-content"
+                     hx-swap="innerHTML"
+                      class="nav-link">Upload</a></li>
+            </ul>
+
+        </nav>
+
+        <main id="main-content" class="col-10 p-4">
+<div th:fragment="main" class="row gap-3">
+
+
+    <div class="col-3 shadow-sm card p-1">
+
+        <img src="../static/img/video-thumbnails-hero-1.png" th:src="@{img/video-thumbnails-hero-1.png}" alt="" sizes="" srcset="">
+
+        <h5>video Title</h5>
+                    <p class="">150K</p>
+            </div>
+            <div class="col-3 shadow-sm card p-1">
+
+                <img src="../static/img/video-thumbnails-hero-1.png" th:src="@{img/video-thumbnails-hero-1.png}" alt="" sizes="" srcset="">
+                <h5>video Title</h5>
+                <p class="">150K</p>
+            </div>
+            <div class="col-3 shadow-sm card p-1">
+
+                <img src="../static/img/video-thumbnails-hero-1.png" th:src="@{img/video-thumbnails-hero-1.png}" alt="" sizes="" srcset="">
+                <h5>video Title</h5>
+                <p class="">150K</p>
+            </div>
+            <p><span>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Molestias tenetur facilis est numquam!
+                Eius excepturi quos quis perspiciatis distinctio quaerat, quod recusandae facilis natus, iure
+                    commodi nesciunt asperiores atque obcaecati?</span><span>Harum asperiores sequi aspernatur! Qui
+                    neque in impedit blanditiis. Perspiciatis soluta saepe adipisci excepturi. Officia eveniet
+                    laudantium eum tempora, suscipit, error quo ea eius fugit placeat, dicta consectetur quos
+                    sapiente!</span><span>Similique saepe aperiam, mollitia dolore, corporis voluptatem itaque officiis
+                        pariatur non voluptates, aliquam ab. Debitis, vero aliquid, nulla eos placeat exercitationem animi
+                    architecto incidunt at perferendis vel voluptates saepe ipsum.</span></p>
+            <p><span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione quasi aliquam maiores a iste,
+                    eaque odit iure dolorum? Odit ducimus nostrum at asperiores commodi culpa eaque non doloribus totam
+                    voluptas?</span><span>Perferendis a, mollitia doloribus adipisci soluta neque! Eveniet sapiente,
+                    quis consequatur animi modi sequi repellendus fuga unde voluptatibus beatae odit vel voluptatem ut
+                    voluptate aperiam molestiae placeat, assumenda neque accusantium!</span><span>Neque saepe placeat
+                    facilis iste pariatur, autem quos reiciendis harum, beatae sint veniam illum officia expedita
+                    eveniet repellat voluptatibus libero dolorem doloremque quaerat laborum consectetur soluta nemo ut.
+                    Sequi, repellendus.</span></p>
+                    <p><span>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatem reprehenderit sequi quod
+                    corrupti quam quae? Culpa corrupti quas animi laudantium, rerum aperiam quaerat tempora nobis
+                    quibusdam alias, delectus nulla ad.</span><span>Quibusdam officiis deleniti qui dolorum tenetur
+                        earum nisi labore possimus voluptatem ipsam! Eius perspiciatis mollitia rerum minus pariatur
+                    accusantium sed alias error facere. Doloribus totam fugit, eum ratione dignissimos
+                    suscipit!</span><span>Dolorem quasi, voluptates quae atque nemo temporibus corporis hic voluptas
+                    ullam sequi beatae, dolor voluptate eos tenetur similique? Eveniet optio facere eos excepturi beatae
+                    harum dolorum ex nemo doloribus itaque?</span></p>
+
+                </div>
+                </main>
+
+
+            </body>
+
+</html>

@@ -1,0 +1,26 @@
+<script src="../static/js/upload.js" th:src="@{js/upload.js}" defer></script>
+
+<div class="col-10">
+
+    <form id="upForm" >
+
+        <input type="text" name="title" required><br>
+        <input type="text" name="description" required><br>
+        <input type="file" accept="video/mp4,video/x-m4v,video/*" id="videoBits-input" name="videoBits" required><br>
+
+        <input type="submit" value="upload" form="upForm">
+
+    </form>
+</div>
+
+
+
+
+<div th:fragment="success">
+    <h2>success</h2>
+</div>
+
+<section id="box">
+    <progress id="progress-bar" value="0" max="100"></progress>
+</section>
+

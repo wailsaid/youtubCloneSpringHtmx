@@ -1,0 +1,13 @@
+body {
+    overflow-x: hidden;
+}
+
+.nav-item:hover {
+    background-color: #dcdcdc;
+}
+
+
+progress[value="0"]{
+
+    display: none ;
+}
