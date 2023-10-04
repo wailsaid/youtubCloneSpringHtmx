@@ -1,0 +1,20 @@
+
+    <div th:fragment="upload-Done" hx-target="#upForm" hx-swap="outerHTML">
+  <p>
+      <span class='h6'> The Upload is Succesful </span>
+      go home or upload again.
+  </p>
+
+<button hx-get="/upload">Upload</button>
+
+<button hx-get="/home">Home</button>
+
+</div>
+
+
+<div th:fragment="success">
+    <h2>success</h2>
+</div>
+
+
+

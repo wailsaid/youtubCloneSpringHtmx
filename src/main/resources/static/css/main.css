@@ -11,3 +11,20 @@ progress[value="0"]{
 
     display: none ;
 }
+
+
+video{
+    background-color: #000;
+    width: min(900px,100%);
+    height: 25rem;
+}
+
+.video-in-main{
+position: absolute;
+  inset: 0 0 0 -40%;
+  width: max(35%,15rem);
+  background-color: hsla(0, 0%, 100%, 0.89);
+  height: 100%;
+}
+
+

@@ -1,0 +1,33 @@
+           
+
+          <div th:fragment="video" class="video">
+                <video  controls>
+                  <source  th:src="${'/stream/' +video.getId()}"type="video/mp4">
+                  Your browser does not support the video tag.
+                  </video>
+              <h3 th:text="${video.getTitle()}"></h3>
+            </div>
+
+
+
+<script>
+      // Check if the main content contains a video element
+    function mainContainsVideo() {
+      const mainContent = document.getElementById('main-content');
+      const videoElement = mainContent.querySelector('video');
+      return videoElement !== null;
+    }
+
+    // Function to update nav styling based on main content
+    function updateNavStyling() {
+      const siteNav = document.querySelector('nav');
+      if (mainContainsVideo()) {
+        siteNav.classList.add('video-in-main');
+      } else {
+        siteNav.classList.remove('video-in-main');
+      }
+    }
+
+    // Call the updateNavStyling function when the page loads
+    updateNavStyling();
+</script>
