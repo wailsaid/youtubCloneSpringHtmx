@@ -15,7 +15,7 @@ progress[value="0"]{
 
 video{
     background-color: #000;
-    width: min(900px,100%);
+    width: min(800px,100%);
     height: 25rem;
 }
 

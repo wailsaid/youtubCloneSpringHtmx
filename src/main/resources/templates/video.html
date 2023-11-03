@@ -1,5 +1,84 @@
            
 
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"
+        defer></script>
+
+    <title>Video Streaming Home</title>
+
+
+    <link rel="stylesheet" type="text/css" href="../static/css/main.css" th:href="@{css/main.css}" media="all">
+
+    <script src="../static/js/htmx.min.js" th:src="@{js/htmx.min.js}" defer></script>
+
+
+</head>
+
+<body>
+
+    <header class="navbar navbar-expand-md navbar-light bg-light shadow-sm">
+        <div class="container">
+            <a href="#"
+               hx-get="/"
+               hx-trigger="click"
+               hx-target="#main-content"
+               hx-swap="outerHTML"
+                class="navbar-brand h1">Home</a>
+
+
+
+            <ul class="navbar-nav">
+                <li><a href="login" class="btn btn-outline-primary">login</a></li>
+                <li><a href="register" class="nav-link">Register</a></li>
+            </ul>
+        </div>
+
+    </header>
+    <div class=" row">
+        <nav class="col-md-2 pt-4">
+            <ul class="nav flex-column mh-100">
+
+
+                <li class="nav-item rounded-pill">
+                    <a href="#" 
+                       hx-get="/"
+                       hx-push-url="true" 
+                       hx-replace-url="true" 
+                       hx-trigger="click"
+                       hx-target="#main-content" 
+                       hx-swap="outerHTML" class="nav-link">Home</a>
+                </li>
+
+
+                <li class="nav-item rounded-pill"><a href="#" class="nav-link">Libery</a></li>
+                <li class="nav-item rounded-pill"><a href="#" class="nav-link">Shorts</a></li>
+                <li class="nav-item rounded-pill"><a href="#" class="nav-link">History</a></li>
+
+
+                <li class="nav-item rounded-pill">
+                    <a href="#" 
+                       hx-get="/upload" 
+                       hx-push-url="true" 
+                       hx-replace-url="true" 
+                       hx-trigger="click"
+                       hx-target="#main-content" 
+                       hx-swap="innerHTML" class="nav-link">Upload</a>
+                </li>
+            </ul>
+
+        </nav>
+
+        <main id="main-content" class="col-md-10 p-4">
+      
           <div th:fragment="video" class="video">
                 <video  controls>
                   <source  th:src="${'/stream/' +video.getId()}"type="video/mp4">
@@ -8,26 +87,9 @@
               <h3 th:text="${video.getTitle()}"></h3>
             </div>
 
+           </main>
 
 
-<script>
-      // Check if the main content contains a video element
-    function mainContainsVideo() {
-      const mainContent = document.getElementById('main-content');
-      const videoElement = mainContent.querySelector('video');
-      return videoElement !== null;
-    }
+</body>
 
-    // Function to update nav styling based on main content
-    function updateNavStyling() {
-      const siteNav = document.querySelector('nav');
-      if (mainContainsVideo()) {
-        siteNav.classList.add('video-in-main');
-      } else {
-        siteNav.classList.remove('video-in-main');
-      }
-    }
-
-    // Call the updateNavStyling function when the page loads
-    updateNavStyling();
-</script>
+</html> 

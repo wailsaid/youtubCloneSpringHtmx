@@ -1,12 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
 
-    <form id="upForm" hx-encoding='multipart/form-data' hx-post='/upload' hx-target='this'>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"
+        defer></script>
+
+    <title>Video Streaming Home</title>
+
+
+    <link rel="stylesheet" type="text/css" href="../static/css/main.css" th:href="@{css/main.css}" media="all">
+
+    <script src="../static/js/htmx.min.js" th:src="@{js/htmx.min.js}" defer></script>
+
+
+</head>
+
+<body>
+
+    <header class="navbar navbar-expand-md navbar-light bg-light shadow-sm">
+        <div class="container">
+            <a href="#"
+               hx-get="/"
+               hx-trigger="click"
+               hx-target="#main-content"
+               hx-swap="outerHTML"
+                class="navbar-brand h1">Home</a>
+
+
+
+            <ul class="navbar-nav">
+                <li><a href="login" class="btn btn-outline-primary">login</a></li>
+                <li><a href="register" class="nav-link">Register</a></li>
+            </ul>
+        </div>
+
+    </header>
+    <div class=" row">
+        <nav class="col-md-2 pt-4">
+            <ul class="nav flex-column mh-100">
+
+
+                <li class="nav-item rounded-pill">
+                    <a href="#" 
+                       hx-get="/"
+                       hx-push-url="true" 
+                       hx-replace-url="true" 
+                       hx-trigger="click"
+                       hx-target="#main-content" 
+                       hx-swap="outerHTML" class="nav-link">Home</a>
+                </li>
+
+
+                <li class="nav-item rounded-pill"><a href="#" class="nav-link">Libery</a></li>
+                <li class="nav-item rounded-pill"><a href="#" class="nav-link">Shorts</a></li>
+                <li class="nav-item rounded-pill"><a href="#" class="nav-link">History</a></li>
+
+
+                <li class="nav-item rounded-pill">
+                    <a href="#" 
+                       hx-get="/upload" 
+                       hx-push-url="true" 
+                       hx-replace-url="true" 
+                       hx-trigger="click"
+                       hx-target="#main-content" 
+                       hx-swap="innerHTML" class="nav-link">Upload</a>
+                </li>
+            </ul>
+
+        </nav>
+
+        <main id="main-content" class="col-md-10 p-4">
+             
+    <form th:fragment="form" id="upForm" hx-encoding='multipart/form-data' hx-post='/upload' hx-target='this'>
 
         <input type="text" name="title" required><br>
         <input type="text" name="description" required><br>
-        <input type="file" accept="video/mp4,video/x-m4v,video/*" id="videoBits-input" name="videoBits" required><br>
+        <input type="file" accept="video/mp4" id="videoBits-input" name="videoBits" required><br>
 
         <input type="submit" value="upload" form="upForm">
 
     <progress id="progress" value="0" max="100"></progress>
+    <script src="../static/js/upload.js" th:src="@{js/upload.js}" defer></script>
     </form>
-  
+      </main>
+
+
+</body>
+
+</html> 

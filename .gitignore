@@ -1,6 +1,7 @@
 <<<<<<< HEAD
 HELP.md
 target/
+uploads/videos/*
 upload/video/*
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/

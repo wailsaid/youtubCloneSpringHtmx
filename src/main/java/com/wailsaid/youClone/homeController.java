@@ -1,5 +1,6 @@
 package com.wailsaid.youClone;
 
+import io.github.wimdeblauwe.htmx.spring.boot.mvc.HxRequest;
 import jakarta.annotation.Resources;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -11,7 +12,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.nio.file.StandardOpenOption;
+import java.util.Arrays;
 import lombok.RequiredArgsConstructor;
+import org.apache.catalina.connector.ClientAbortException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -41,20 +44,44 @@ public class homeController {
 
   @GetMapping
   String getHome(Model m) {
+    var paths =
+        Arrays.asList(Paths.get("./uploads/videos").toFile().listFiles())
+            .stream()
+            .map(f -> f.getPath())
+            .toList();
+    m.addAttribute("VideoList", repository.findAll()
+                                    .stream()
+                                    .filter(v -> paths.contains(v.getPath()))
+                                    .toList());
 
-    m.addAttribute("VideoList", repository.findAll());
+    // m.addAttribute("VideoList", repository.findAll());
     return "index";
   }
 
-  @GetMapping("/home")
+  @HxRequest
+  @GetMapping()
   String getHomeContent(Model m) {
-    m.addAttribute("VideoList", repository.findAll());
+    var paths =
+        Arrays.asList(Paths.get("./uploads/videos").toFile().listFiles())
+            .stream()
+            .map(f -> f.getPath())
+            .toList();
+    m.addAttribute("VideoList", repository.findAll()
+                                    .stream()
+                                    .filter(v -> paths.contains(v.getPath()))
+                                    .toList());
     return "index :: main";
   }
 
   @GetMapping("upload")
   String uploadPage() {
     return "upload";
+  }
+
+  @HxRequest
+  @GetMapping("upload")
+  String uploadForm() {
+    return "upload :: form";
   }
 
   @PostMapping("upload")
@@ -87,45 +114,26 @@ public class homeController {
     return "video";
   }
 
+  @HxRequest
+  @GetMapping(path = "/watch/{fileId}")
+  String watchComp(@PathVariable("fileId") Long id, Model m) {
+
+    m.addAttribute("video", repository.findById(id).get());
+    return "video :: video";
+  }
+
   @GetMapping(path = "/stream/{fileId}")
   @ResponseBody
   ResponseEntity<StreamingResponseBody>
   videoStream(@PathVariable("fileId") Long id,
               @RequestHeader(value = "Range", required = false) String range)
       throws Exception {
-    /*
-     * long rangeStart = Long.parseLong(range.replace("bytes=",
-     * "").split("-")[0]);
-     *
-     * long rangeEnd = Long.parseLong(range.replace("bytes=",
-     * "").split("-")[1]); InputStream io =
-     * Files.newInputStream(Paths.get(v.getPath()), StandardOpenOption.READ);
-     * long contentLenght = v.getSize(); // you must have it somewhere stored or
-     * // read the full file size
-     *
-     * HttpHeaders headers = new HttpHeaders();
-     * headers.setContentType(MediaType.valueOf("video/mp4"));
-     * headers.set("Accept-Ranges", "bytes");
-     * headers.set("Expires", "0");
-     * headers.set("Cache-Control", "no-cache, no-store");
-     * headers.set("Connection", "keep-alive");
-     * headers.set("Content-Transfer-Encoding", "binary");
-     * headers.set("Content-Length", String.valueOf(rangeEnd - rangeStart + 1));
-     *
-     * // if start range assume that all content
-     * if (rangeStart == 0) {
-     * return new ResponseEntity<>(new InputStreamResource(io), headers,
-     * HttpStatus.OK);
-     * } else {
-     * headers.set("Content-Range", String.format("bytes %s-%s/%s", rangeStart,
-     * rangeEnd, contentLenght));
-     * return new ResponseEntity<>(new InputStreamResource(io), headers,
-     * HttpStatus.PARTIAL_CONTENT);
-     * }
-     */
-
     try {
-      Video v = repository.findById(id).get();
+      Video v = repository.findById(id).orElse(null);
+      if (v == null) {
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+      }
+
       StreamingResponseBody responseStream;
       String filePathString = v.getPath();
       Path filePath = Paths.get(filePathString);
@@ -195,7 +203,15 @@ public class homeController {
           responseStream, responseHeaders, HttpStatus.PARTIAL_CONTENT);
     } catch (FileNotFoundException e) {
       return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    } catch (ClientAbortException cae) {
+      // The client disconnected; this is a normal situation
+      System.err.println("disconnected");
+      return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+      // Log the exception or handle it as needed for your application
+      // You may want to log that the client disconnected to track usage
+      // or provide more user-friendly feedback if needed
     } catch (IOException e) {
+
       return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
