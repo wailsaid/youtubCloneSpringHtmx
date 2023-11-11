@@ -2,10 +2,12 @@ package com.wailsaid.youClone;
 
 import io.github.wimdeblauwe.htmx.spring.boot.mvc.HxRequest;
 import jakarta.annotation.Resources;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.RandomAccessFile;
+import java.nio.channels.Channels;
 import java.nio.file.CopyOption;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -17,8 +19,10 @@ import lombok.RequiredArgsConstructor;
 import org.apache.catalina.connector.ClientAbortException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
+import org.springframework.data.domain.Range;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpRange;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -122,6 +126,64 @@ public class homeController {
     return "video :: video";
   }
 
+  @GetMapping(path = "/stream2/{fileId}", produces = "video/mp4")
+  @ResponseBody
+  ResponseEntity<InputStreamResource> stream(@PathVariable("fileId") Long id,
+                                             @RequestHeader HttpHeaders headers)
+      throws IOException {
+
+    var video = repository.findById(id).orElse(null);
+    if (video == null) {
+      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    var is = new FileInputStream(video.getPath());
+    var randomAccessFile = new RandomAccessFile(video.getPath(), "r");
+    var contentLength = is.available();
+
+    HttpRange range = headers.getRange().isEmpty()
+                          ? HttpRange.createByteRange(0, contentLength - 1)
+                          : headers.getRange().get(0);
+
+    var start = range.getRangeStart(contentLength);
+    var end = range.getRangeEnd(contentLength);
+
+    long rangelength = Math.min(1024 * 1024, end - start + 1);
+
+    var respH = new HttpHeaders();
+    respH.set("Content-Range",
+              String.format("bytes %d-%d/%d", start, start + rangelength - 1,
+                            contentLength));
+
+    // var isr = new InputStreamResource(new PartialInputStream(is, start,
+    // rangelength));
+    // var isr = new InputStreamResource(is);
+    InputStreamResource isr = new InputStreamResource(
+        Channels.newInputStream(randomAccessFile.getChannel())) {
+      @Override
+      public InputStream getInputStream() {
+        try {
+          randomAccessFile.seek(start);
+          return super.getInputStream();
+        } catch (IOException e) {
+          throw new RuntimeException("Error seeking in the file", e);
+        }
+      }
+
+      @Override
+      public long contentLength() {
+        return rangelength;
+      }
+    };
+
+    return ResponseEntity.status(HttpStatus.PARTIAL_CONTENT)
+        .headers(respH)
+        .contentType(MediaType.valueOf("video/mp4"))
+        .body(isr);
+  }
+
+  // **************************************************************************
+  // ************************************************************************
   @GetMapping(path = "/stream/{fileId}")
   @ResponseBody
   ResponseEntity<StreamingResponseBody>

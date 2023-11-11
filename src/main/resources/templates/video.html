@@ -81,7 +81,7 @@
       
           <div th:fragment="video" class="video">
                 <video  controls>
-                  <source  th:src="${'/stream/' +video.getId()}"type="video/mp4">
+                  <source  th:src="${'/stream2/' +video.getId()}"type="video/mp4">
                   Your browser does not support the video tag.
                   </video>
               <h3 th:text="${video.getTitle()}"></h3>
