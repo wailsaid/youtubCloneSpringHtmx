@@ -155,8 +155,6 @@ public class homeController {
               String.format("bytes %d-%d/%d", start, start + rangelength - 1,
                             contentLength));
 
-    // var isr = new InputStreamResource(new PartialInputStream(is, start,
-    // rangelength));
     // var isr = new InputStreamResource(is);
     InputStreamResource isr = new InputStreamResource(
         Channels.newInputStream(randomAccessFile.getChannel())) {
