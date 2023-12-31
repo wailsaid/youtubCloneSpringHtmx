@@ -1,4 +1,4 @@
-           
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -49,12 +49,12 @@
 
 
                 <li class="nav-item rounded-pill">
-                    <a href="#" 
+                    <a href="#"
                        hx-get="/"
-                       hx-push-url="true" 
-                       hx-replace-url="true" 
+                       hx-push-url="true"
+                       hx-replace-url="true"
                        hx-trigger="click"
-                       hx-target="#main-content" 
+                       hx-target="#main-content"
                        hx-swap="outerHTML" class="nav-link">Home</a>
                 </li>
 
@@ -65,12 +65,12 @@
 
 
                 <li class="nav-item rounded-pill">
-                    <a href="#" 
-                       hx-get="/upload" 
-                       hx-push-url="true" 
-                       hx-replace-url="true" 
+                    <a href="#"
+                       hx-get="/upload"
+                       hx-push-url="true"
+                       hx-replace-url="true"
                        hx-trigger="click"
-                       hx-target="#main-content" 
+                       hx-target="#main-content"
                        hx-swap="innerHTML" class="nav-link">Upload</a>
                 </li>
             </ul>
@@ -78,13 +78,13 @@
         </nav>
 
         <main id="main-content" class="col-md-10 p-4">
-      
+
           <div th:fragment="video" class="video">
                 <video  controls>
-                  <source  th:src="${'/stream2/' +video.getId()}"type="video/mp4">
+                  <source  src="/stream3/video1" type="video/mp4">
                   Your browser does not support the video tag.
                   </video>
-              <h3 th:text="${video.getTitle()}"></h3>
+              <h3 > cc</h3>
             </div>
 
            </main>
@@ -92,4 +92,4 @@
 
 </body>
 
-</html> 
+</html>

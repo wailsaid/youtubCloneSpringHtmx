@@ -47,12 +47,12 @@
 
 
                 <li class="nav-item rounded-pill">
-                    <a href="#" 
+                    <a href="#"
                        hx-get="/"
-                       hx-push-url="true" 
-                       hx-replace-url="true" 
+                       hx-push-url="true"
+                       hx-replace-url="true"
                        hx-trigger="click"
-                       hx-target="#main-content" 
+                       hx-target="#main-content"
                        hx-swap="outerHTML" class="nav-link">Home</a>
                 </li>
 
@@ -63,12 +63,12 @@
 
 
                 <li class="nav-item rounded-pill">
-                    <a href="#" 
-                       hx-get="/upload" 
-                       hx-push-url="true" 
-                       hx-replace-url="true" 
+                    <a href="#"
+                       hx-get="/upload"
+                       hx-push-url="true"
+                       hx-replace-url="true"
                        hx-trigger="click"
-                       hx-target="#main-content" 
+                       hx-target="#main-content"
                        hx-swap="innerHTML" class="nav-link">Upload</a>
                 </li>
             </ul>
@@ -78,17 +78,17 @@
         <main id="main-content" class="col-md-10 p-4">
             <div th:fragment="main" class="row gap-5">
 
-                <div th:each="Video : ${VideoList}" class="col-sm-3 shadow-sm card p-1">
+                <div  class="col-sm-3 shadow-sm card p-1">
 
                     <img src="/static/img/video-thumbnails-hero-1.png" th:src="@{img/video-thumbnails-hero-1.png}"
                         alt="" sizes="" srcset="">
 
-                    <h5 th:text="${Video.getTitle()}"></h5>
-                    <button type="button" 
-                            hx:get="@{/watch/{id}(id=${Video.getId()})}"
+                    <h5 >cc</h5>
+                    <button type="button"
+                            hx:get="@{/watch/14}"
                             hx-push-url="true"
-                            hx-replace-url="true" 
-                            hx-trigger="click" 
+                            hx-replace-url="true"
+                            hx-trigger="click"
                             hx-target="#main-content"
                             hx-swap="innerHTML">watch</button>
                     <p class="">150K</p>
