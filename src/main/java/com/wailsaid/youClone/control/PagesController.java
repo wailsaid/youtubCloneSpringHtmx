@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.wailsaid.youClone.Video;
 import com.wailsaid.youClone.service.VideoService;
 
 import io.github.wimdeblauwe.htmx.spring.boot.mvc.HxRequest;
@@ -51,7 +50,7 @@ public class PagesController {
 
    @GetMapping("video")
   String videoPage() {
-    return "video";
+    return "vide";
   }
 
   @HxRequest
@@ -71,11 +70,6 @@ public class PagesController {
     Files.copy(videoBits.getInputStream(), path,
         StandardCopyOption.REPLACE_EXISTING);
 
-    Video v = Video.builder()
-        .title(title)
-        .description(description)
-        .path(path.toString())
-        .build();
 
 
     return "components :: upload-Done";
