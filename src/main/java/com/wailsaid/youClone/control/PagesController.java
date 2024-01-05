@@ -49,6 +49,11 @@ public class PagesController {
     return "upload";
   }
 
+   @GetMapping("video")
+  String videoPage() {
+    return "video";
+  }
+
   @HxRequest
   @GetMapping("upload")
   String uploadForm() {

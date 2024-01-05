@@ -3,6 +3,7 @@ HELP.md
 target/
 uploads/videos/*
 upload/video/*
+
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
@@ -60,3 +61,5 @@ build/
 hs_err_pid*
 replay_pid*
 >>>>>>> 5618eda881ae2fdb55e26dcbff4204b16d2cd15a
+node_modules/
+.env

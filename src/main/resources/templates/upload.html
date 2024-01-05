@@ -14,83 +14,225 @@
     <title>Video Streaming Home</title>
 
 
-    <link rel="stylesheet" type="text/css" href="../static/css/main.css" th:href="@{css/main.css}" media="all">
+    <link rel="stylesheet" type="text/css" href="../static/css/main1.css" th:href="@{css/main1.css}" media="all">
 
     <script src="../static/js/htmx.min.js" th:src="@{js/htmx.min.js}" defer></script>
+   <!--  <script src="https://cdn.tailwindcss.com"></script> -->
 
 
 </head>
 
-<body>
+<body class="h-screen grid grid-rows-[auto_1fr_auto]">
+    <header class="bg-gray-800">
+        <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+            <div class="relative flex h-16 items-center justify-between">
 
-    <header class="navbar navbar-expand-md navbar-light bg-light shadow-sm">
-        <div class="container">
-            <a href="#"
-               hx-get="/"
-               hx-trigger="click"
-               hx-target="#main-content"
-               hx-swap="outerHTML"
-                class="navbar-brand h1">Home</a>
+                <div class="absolute inset-y-0 left-0 flex items-center sm:hidden ">
+
+                    <button type="button"
+                        class="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-1 focus:ring-inset focus:ring-white "
+                        aria-controls="mobile-nav" aria-expanded="false">
+
+                        <span class="absolute -inset-0.5"></span>
+                        <span class="sr-only">Open Menu</span>
 
 
+                        <svg class="block h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                        </svg>
 
-            <ul class="navbar-nav">
-                <li><a href="login" class="btn btn-outline-primary">login</a></li>
-                <li><a href="register" class="nav-link">Register</a></li>
-            </ul>
+                        <svg class="hidden h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+
+                    </button>
+                </div>
+
+                <div class="bg-whit flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+                    <div class="flex flex-shrink items-center">
+                        <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                            alt="Your Company">
+                    </div>
+
+                    <div class="hidden sm:ml-6 sm:block">
+                        <div class="flex">
+                            <a href="/" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md">
+                                Home </a>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    class=" absolute inset-y-0 right-0 flex items-center pr-2 sm:s  sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                    <button type="button"
+                        class="relative bg-gray-800 rounded-full p-1
+                     text-gray-400 hover:text-white focus:outline-none focus:ring-1 focus:ring-white focus:ring-offset-2  focus:ring-offset-gray-800 ">
+                        <span class="absolute -inset-1.5"></span>
+                        <span class="sr-only">View Notification</span>
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                            aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
+                        </svg>
+                    </button>
+
+                    <div class="relative ml-3">
+                        <div>
+                            <button type="button"
+                                class="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                                id="user-menu-button" aria-expanded="false" aria-haspopup="true">
+                                <span class="absolute -inset-1.5"></span>
+                                <span class="sr-only">Open user menu</span>
+                                <img class="h-8 w-8 rounded-full"
+                                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                    alt="">
+                            </button>
+                        </div>
+
+                        <!--  <div class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                            role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1"
+                                id="user-menu-item-0">Your Profile</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1"
+                                id="user-menu-item-1">Settings</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1"
+                                id="user-menu-item-2">Sign out</a>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
         </div>
-
     </header>
-    <div class=" row">
-        <nav class="col-md-2 pt-4">
-            <ul class="nav flex-column mh-100">
+    <div class="grid md:grid-cols-[20%_80%] bg-gray-400 min-h- ">
+
+        <aside class="">
+            <div class="space-y-1 px-2 pb-3 mt-2 pt-2">
+                <a href="#"
+                    class="text-gray-700 text-sm hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Team</a>
+                <a href="#"
+                    class="text-gray-700 text-sm hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Projects</a>
+                <a href="#"
+                    class="text-gray-700 text-sm hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Calendar</a>
+            </div>
+        </aside>
+
+        <!--
+            <main class="bg-gray-200 grid md:rounded-tl-lg grid-cols-1 md:grid-cols-4 gap-3 px-4 py-4 ">
+            -->
+        <main class="bg-gray-200  md:rounded-tl-lg px-4 py-4">
 
 
-                <li class="nav-item rounded-pill">
-                    <a href="#" 
-                       hx-get="/"
-                       hx-push-url="true" 
-                       hx-replace-url="true" 
-                       hx-trigger="click"
-                       hx-target="#main-content" 
-                       hx-swap="outerHTML" class="nav-link">Home</a>
-                </li>
+            <form class="bg-gray-100 p-3 rounded-md p-3">
+                <div class="space-y-12 grid grid-cols-2 gap-5">
+                    <div class=" pb-12">
+                        <h2 class="text-base font-semibold leading-7 text-gray-900">Video Upload</h2>
+                        <p class="mt-1 text-sm leading-6 text-gray-600">
+                            Fill in The information for the uploaded video.</p>
 
 
-                <li class="nav-item rounded-pill"><a href="#" class="nav-link">Libery</a></li>
-                <li class="nav-item rounded-pill"><a href="#" class="nav-link">Shorts</a></li>
-                <li class="nav-item rounded-pill"><a href="#" class="nav-link">History</a></li>
+                        <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                            <div class="sm:col-span-4">
+                                <label for="title"
+                                    class="block text-sm font-semibold leading-6 text-gray-900">Title</label>
+                                <div class="mt-2">
+                                    <div
+                                        class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                                        <input type="text" name="title" id="title" autocomplete="title"
+                                            class="block flex-1 rounded-md  py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                                            placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-span-full">
+                                <label for="about"
+                                    class="block text-sm font-medium leading-6 text-gray-900">Description</label>
+                                <div class="mt-2">
+                                    <textarea id="about" name="about" rows="4"
+                                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"></textarea>
+                                </div>
+                                <p class="mt-3 text-sm leading-6 text-gray-600">Write a few sentences about the video.
+                                </p>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="space-y-10">
+                        <div class="col-span-fll">
+                            <label for="cover-photo" class="block text-sm font-medium leading-6 text-gray-900">Thumbnail
+                                photo</label>
+                            <div
+                                class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-3">
+                                <div class="text-center">
+                                    <svg class="mx-auto h-12 w-12 text-gray-30" viewBox="0 0 24 24" fill="currentColor"
+                                        aria-hidden="true">
+                                        <path fill-rule="evenodd"
+                                            d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                    <div class="mt-4 flex text-sm leading-6 text-gray-600 items-center">
+                                        <label for="photo-upload"
+                                            class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500">
+                                            <span>Upload a file</span>
+                                            <input id="photo-upload" name="photo-upload" type="file" class="sr-only">
+                                        </label>
+                                        <p class="text-xs leading-5 text-gray-600 ml-1"> PNG, JPG, GIF up to 10MB</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-span-fll">
+                            <label for="cover-photo" class="block text-sm font-medium leading-6 text-gray-900">Thumbnail
+                                photo</label>
+                            <div
+                                class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-3">
+                                <div class="text-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class=" mx-auto h-12 w-12 text-gray-300" shape-rendering="geometricPrecision"
+                                        text-rendering="geometricPrecision" image-rendering="optimizeQuality"
+                                        fill-rule="evenodd" clip-rule="evenodd" viewBox="0 0 512 512">
+                                        <path
+                                            d="M145.227 0h221.546c39.961 0 76.278 16.334 102.589 42.638C495.666 68.942 512 105.262 512 145.224v221.549c0 39.965-16.334 76.278-42.638 102.589C443.051 495.666 406.738 512 366.773 512H145.227c-39.961 0-76.278-16.334-102.589-42.638C16.334 443.051 0 406.738 0 366.773V145.224c0-39.962 16.334-76.282 42.638-102.586C68.949 16.334 105.266 0 145.227 0zm57.614 225.515c-4.073-.173-6.969-1.531-8.64-4.07-4.539-6.801 1.656-13.522 5.946-18.251 12.196-13.373 42.058-45.523 48.077-52.604 4.556-5.035 11.05-5.035 15.603 0 6.216 7.261 37.588 40.877 49.175 53.883 4.019 4.527 8.993 10.704 4.805 16.972-1.711 2.539-4.571 3.897-8.648 4.07h-24.744v61.154c0 6.53-5.356 11.893-11.89 11.893h-33.043c-6.533 0-11.889-5.352-11.889-11.893v-61.154h-24.752zm-74.783 62.033c-1.362-5.622.932-10.038 4.596-12.657a12.85 12.85 0 014.404-1.999 12.864 12.864 0 014.816-.245c4.463.642 8.529 3.519 9.901 9.16a348.857 348.857 0 012.367 10.484l1.869 9.214c2.442 12.325 4.254 20.058 8.806 23.909 4.812 4.073 13.928 5.482 31.397 5.482h122.695c16.121 0 24.539-1.546 28.962-5.544 4.264-3.854 5.935-11.396 8.1-22.968l.119-.598c1.134-6.109 2.381-12.711 4.138-19.979 1.372-5.637 5.435-8.518 9.902-9.16a12.866 12.866 0 014.815.245 12.858 12.858 0 014.405 1.999c3.663 2.608 5.958 7.024 4.596 12.653-1.603 6.628-2.835 13.201-3.962 19.237l-.065.35c-3.162 16.91-5.788 28.54-14.49 36.717-8.615 8.096-22.115 11.525-46.52 11.525H196.214c-25.522 0-39.551-3.072-48.573-11.065-9.25-8.194-12.052-20.083-15.622-38.117l-1.894-9.408a321.243 321.243 0 00-2.067-9.235zm17.169-261.363h221.546c65.477 0 119.042 53.565 119.042 119.039v221.549c0 65.477-53.565 119.042-119.042 119.042H145.227c-65.477 0-119.042-53.565-119.042-119.042V145.224c0-65.474 53.565-119.039 119.042-119.039z" />
+                                    </svg>
+                                    <div class="mt-4 flex text-sm leading-6 text-gray-600 items-center">
+                                        <label for="file-upload"
+                                            class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500">
+                                            <span>Upload a file</span>
+                                            <input id="file-upload" name="file-upload" type="file" class="sr-only">
+                                        </label>
+                                        <p class="text-xs leading-5 text-gray-600 ml-1"> MP4, MKV up to 1GB</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
 
-                <li class="nav-item rounded-pill">
-                    <a href="#" 
-                       hx-get="/upload" 
-                       hx-push-url="true" 
-                       hx-replace-url="true" 
-                       hx-trigger="click"
-                       hx-target="#main-content" 
-                       hx-swap="innerHTML" class="nav-link">Upload</a>
-                </li>
-            </ul>
+                </div>
+                <hr>
+                <div class="mt-6 flex items-center justify-end gap-x-6">
+                    <button type="button" class="text-sm font-semibold leading-6 text-gray-900">Cancel</button>
+                    <button type="submit"
+                        class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Save</button>
+                </div>
+            </form>
 
-        </nav>
 
-        <main id="main-content" class="col-md-10 p-4">
-             
-    <form th:fragment="form" id="upForm" hx-encoding='multipart/form-data' hx-post='/upload' hx-target='this'>
 
-        <input type="text" name="title" required><br>
-        <input type="text" name="description" required><br>
-        <input type="file" accept="video/mp4" id="videoBits-input" name="videoBits" required><br>
 
-        <input type="submit" value="upload" form="upForm">
 
-    <progress id="progress" value="0" max="100"></progress>
-    <script src="../static/js/upload.js" th:src="@{js/upload.js}" defer></script>
-    </form>
-      </main>
+
+        </main>
+    </div>
+    <footer class="flex justify-center items-center bg-gray-400 min-h-28">
+        All Copy rights &COPY;
+    </footer>
 
 
 </body>
 
-</html> 
+</html>

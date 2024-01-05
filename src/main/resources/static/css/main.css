@@ -1,4 +1,8 @@
-body {
+@tailwind base;
+@tailwind utilities;
+@tailwind components;
+
+/* body {
     overflow-x: hidden;
 }
 
@@ -27,4 +31,4 @@ position: absolute;
   height: 100%;
 }
 
-
+ */
