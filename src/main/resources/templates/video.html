@@ -14,15 +14,16 @@
     <title>Video Streaming Home</title>
 
 
-    <link rel="stylesheet" type="text/css" href="../static/css/main1.css" th:href="@{css/main1.css}" media="all">
 
-    <script src="../static/js/htmx.min.js" th:src="@{js/htmx.min.js}" defer></script>
-    <!-- <script src="https://cdn.tailwindcss.com"></script>
- -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main1.css}" media="all">
+
+    <script th:src="@{js/htmx.min.js}" defer></script>
+ <script src="https://cdn.tailwindcss.com"></script>
+ 
 
 </head>
 
-<body>
+<body class="h-screen grid grid-rows-[auto_1fr_auto">
     <header class="bg-gray-800">
         <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
             <div class="relative flex h-16 items-center justify-between">
@@ -127,7 +128,10 @@
         <main class="bg-gray-200  px-4 py-4 ">
 
             <video controls>
-                <source src="/stream3/video1" type="video/mp4">
+                <source th:src="@{'/stream3/' + ${video}}" type="video/mp4">
+
+
+                <!-- <source th:src="/stream3/video1" type="video/mp4"> -->
                 Your browser does not support the video tag.
             </video>
         </main>

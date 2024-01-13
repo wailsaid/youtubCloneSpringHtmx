@@ -112,10 +112,10 @@
         <aside class="">
             <div class="space-y-1 px-2 pb-3 mt-2 pt-2">
                 <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                <a href="#"
-                    class="text-gray-700 text-sm hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2  font-medium">Team</a>
-                <a href="#"
-                    class="text-gray-700 text-sm hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2  font-medium">Projects</a>
+                <a href="/"
+                    class="text-gray-700 text-sm hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2  font-medium">Video</a>
+                <a href="/upload"
+                    class="text-gray-700 text-sm hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2  font-medium">Upload</a>
                 <a href="#"
                     class="text-gray-700 text-sm hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2  font-medium">Calendar</a>
             </div>
@@ -146,7 +146,7 @@
                 </div>
             </a>
 
-            <a class="card bg-gray-800 text-white md:min-w-60 md:h-52 h-44 shadow-sm p-1">
+            <a  th:each="v : ${videos}" th:href="@{watch/{id}(id=${v.id})}" class="card bg-gray-800 text-white md:min-w-60 md:h-52 h-44 shadow-sm p-1">
                 <img class="rounded-md mb-1 max-w-60"
                     src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMNbh0KdZ-GectOCIotUWQJrq1xVXdIfenzQ&usqp=CAU"
                     alt="">
@@ -161,7 +161,7 @@
                             src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
                             alt="">
                     </div>
-                    <h5>How to Do</h5>
+                    <h5 th:text="${v.title}"></h5>
                 </div>
             </a>
 

@@ -21,9 +21,9 @@ public class VideoService {
     @Value("${userBucket}")
     private String userBucketPath;
 
-    public Mono<Resource> StreamVideo() {
+    public Mono<Resource> StreamVideo(String id) {
 
-        return Mono.fromSupplier(() -> loader.getResource(userBucketPath));
+        return Mono.fromSupplier(() -> loader.getResource(userBucketPath + "/" + id + ".mp4"));
     }
 
 }

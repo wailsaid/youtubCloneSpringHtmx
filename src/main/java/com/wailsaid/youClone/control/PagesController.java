@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.wailsaid.youClone.Video;
+import com.wailsaid.youClone.Repo.VideoRepo;
 import com.wailsaid.youClone.service.VideoService;
 
 import io.github.wimdeblauwe.htmx.spring.boot.mvc.HxRequest;
@@ -29,9 +31,12 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 public class PagesController {
 
-
   @GetMapping
-  String getHome() {
+  String getHome(Model m) {
+
+    var videos = vr.findAll();
+    m.addAttribute("videos", videos);
+    System.out.println(videos);
 
     return "index";
   }
@@ -48,9 +53,9 @@ public class PagesController {
     return "upload";
   }
 
-   @GetMapping("video")
+  @GetMapping("video")
   String videoPage() {
-    return "vide";
+    return "video";
   }
 
   @HxRequest
@@ -59,44 +64,61 @@ public class PagesController {
     return "upload :: form";
   }
 
+  private final VideoRepo vr;
+
   @PostMapping("upload")
   String uploadVideo(@RequestParam("title") String title,
-      @RequestParam("description") String description,
-      @RequestParam("videoBits") MultipartFile videoBits)
+      @RequestParam("about") String description,
+      @RequestParam("photo-upload") MultipartFile thumnial,
+      @RequestParam("file-upload") MultipartFile videofFile)
       throws IOException {
 
-    Path path = Paths.get("./uploads/videos/" + videoBits.getOriginalFilename());
+    new Video();
+    var video = Video.builder().title(title).description(description).build();
 
-    Files.copy(videoBits.getInputStream(), path,
+    var res = vr.save(video);
+
+    System.out.println(res.getId().toString());
+    System.out.println(videofFile.getResource().toString());
+
+    Path path = Paths.get("./uploads/videos/" + res.getId() + ".mp4");
+
+    Files.copy(videofFile.getInputStream(), path,
         StandardCopyOption.REPLACE_EXISTING);
 
-
-
-    return "components :: upload-Done";
+    return "upload";
   }
 
-  @GetMapping(path = "/watch/{fileId}")
-  String watchPage(@PathVariable("fileId") Long id, Model m) {
+    @GetMapping(path = "/watch")
+  String watchPae() {
+
 
     return "video";
   }
 
-  @HxRequest
+  @GetMapping(path = "/watch/{fileId}")
+  String watchPage(@PathVariable("fileId") String id, Model m) {
+
+    m.addAttribute("video", id);
+    return "video";
+  }
+
+/*   @HxRequest
   @GetMapping(path = "/watch/{fileId}")
   String watchComp(@PathVariable("fileId") Long id, Model m) {
 
     return "video :: video";
   }
-
+ */
   private final VideoService vservice;
 
-  @GetMapping(path = "/stream3/video1", produces = "video/mp4")
+  @GetMapping(path = "/stream3/{id}", produces = "video/mp4")
   @ResponseBody
-  public Mono<Resource> stream3(@RequestHeader("Range") String range) {
+  public Mono<Resource> stream3(@PathVariable("id") String id, @RequestHeader("Range") String range) {
     System.out.println("range is : " + range);
 
-    return vservice.StreamVideo();
+    return vservice.StreamVideo(id);
 
   }
 
- }
+}
